@@ -4,7 +4,8 @@
   "description": "Slack stock bot",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec --ui bdd test/mocha-*.js"
+    "test": "istanbul cover _mocha test/mocha-*.js",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "bugs": {
     "url": "github.com:bobbyjball3/stockbot-2000"
@@ -22,6 +23,8 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "4.1.2",
+    "coveralls": "3.0.0",
+    "istanbul": "0.4.5",
     "mocha": "5.0.0"
   }
 }
