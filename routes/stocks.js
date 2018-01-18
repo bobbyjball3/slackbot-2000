@@ -2,10 +2,14 @@
 const Express = require('express')
 const request = require('request')
 
+// Middleware
+const validateStockSymbols = require('../lib/stock-symbol-validation-middleware')
+
 const router = Express.Router()
 
-router.post('/', (req, res, next) => {
-  request.get('https://finance.google.com/finance?q=NASDAQ:AAPL&output=json', (err, quoteRes, body) => {
+router.post('/', validateStockSymbols, (req, res, next) => {
+  let url = `https://finance.google.com/finance?q=NASDAQ:${req.stockSymbols[0]}&output=json`
+  request.get(url, (err, quoteRes, body) => {
     if (err) {
       req.log.error(err)
       return next(err)
