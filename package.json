@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "istanbul cover _mocha test/mocha-*.js",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "lint": "standard --global describe --global it"
   },
   "bugs": {
     "url": "github.com:bobbyjball3/stockbot-2000"
@@ -25,6 +26,16 @@
     "chai": "4.1.2",
     "coveralls": "3.0.0",
     "istanbul": "0.4.5",
-    "mocha": "5.0.0"
+    "mocha": "5.0.0",
+    "standard": "10.0.3"
+  },
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "bunyan": "1.8.12",
+    "config": "1.29.2",
+    "express": "4.16.2",
+    "express-bunyan-logger": "1.3.2",
+    "helmet": "3.9.0",
+    "request": "2.83.0"
   }
 }
