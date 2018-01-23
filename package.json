@@ -2,8 +2,9 @@
   "name": "stockbot-2000",
   "version": "0.0.1",
   "description": "Slack stock bot",
-  "main": "index.js",
+  "main": "slackbot-2000.js",
   "scripts": {
+    "start": "node slackbot-2000.js | bunyan -o short",
     "test": "istanbul cover _mocha test/mocha-*.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "standard --global describe --global it"

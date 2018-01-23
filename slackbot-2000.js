@@ -13,8 +13,10 @@ const errorHandler = require('./lib/error-handling-middleware')
 
 // Routes
 const stocks = require('./routes/stocks')
+const brubble = require('./routes/brubble')
 
 const stocksSlackValidationToken = process.env.STOCKS_SLACK_VALIDATION_TOKEN || 'test'
+const brubbleSlackValidationToken = process.env.BRUBBLE_SLACK_VALIDATION_TOKEN || 'test'
 const port = process.env.PORT || config.server.port
 const log = new Bunyan({
   name: packageInfo.name,
@@ -36,9 +38,11 @@ app.use(helmet(
 // Parser url-encoded form data
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// Mount stocks router
+// Mount all routes
 app.use('/stocks', validateRequest(stocksSlackValidationToken), stocks)
+app.use('/brubble', validateRequest(brubbleSlackValidationToken), brubble)
 
+// Global error handler
 app.use(errorHandler)
 
 app.listen(port, (err) => {

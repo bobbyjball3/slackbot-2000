@@ -3,7 +3,7 @@ const Express = require('express')
 const request = require('request')
 
 // Middleware
-const validateStockSymbols = require('../lib/stock-symbol-validation-middleware')
+const validateStockSymbols = require('../lib/stocks/stock-symbol-validation-middleware')
 
 const router = Express.Router()
 
