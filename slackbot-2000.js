@@ -14,6 +14,7 @@ const errorHandler = require('./lib/error-handling-middleware')
 // Routes
 const stocks = require('./routes/stocks')
 
+const stocksSlackValidationToken = process.env.STOCKS_SLACK_VALIDATION_TOKEN || 'test'
 const port = process.env.PORT || config.server.port
 const log = new Bunyan({
   name: packageInfo.name,
@@ -34,11 +35,9 @@ app.use(helmet(
 ))
 // Parser url-encoded form data
 app.use(bodyParser.urlencoded({ extended: true }))
-// Verify request tokens are valid
-app.use(validateRequest)
 
 // Mount stocks router
-app.use('/stocks', stocks)
+app.use('/stocks', validateRequest(stocksSlackValidationToken), stocks)
 
 app.use(errorHandler)
 
