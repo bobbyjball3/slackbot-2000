@@ -5,7 +5,7 @@
   "main": "slackbot-2000.js",
   "scripts": {
     "start": "node slackbot-2000.js | bunyan -o short",
-    "test": "nyc mocha $(find test/ -name 'test-*' -type f)",
+    "test": "nyc --reporter=lcov --reporter=text mocha $(find test/ -name 'test-*' -type f)",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "standard --global describe --global it"
   },
