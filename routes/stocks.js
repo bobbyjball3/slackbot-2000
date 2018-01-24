@@ -2,23 +2,24 @@
 const Express = require('express')
 const request = require('request')
 
-// Middleware
-const validateStockSymbols = require('../lib/stocks/stock-symbol-validation-middleware')
-
 const router = Express.Router()
 
-router.post('/', validateStockSymbols, (req, res, next) => {
-  let url = `https://finance.google.com/finance?q=NASDAQ:${req.stockSymbols[0]}&output=json`
-  request.get(url, (err, quoteRes, body) => {
-    if (err) {
-      req.log.error(err)
-      return next(err)
-    }
+function stockRoutes(getStockPrice) {
 
-    let stockData = JSON.parse(body.substring(3))[0]
-    let response = `${stockData.symbol} is currently trading at ${stockData.l}USD`
-    res.status(200).send(response).end()
+  router.post('/', (req, res, next) => {
+    // FIXME: probably should loop in case we support more than one symbol in the future
+    let stockSymbol = req.stockSymbols[0]
+    getStockPrice(stockSymbol)
+      .then(tradingPrice => {
+        let stockInformation = `${stockSymbol} is currently trading at ${tradingPrice}`
+        res.status(200).send(stockInformation).end()
+      })
+      .catch(err => {
+        return next(err)
+      })
   })
-})
 
-module.exports = router
+  return router
+}
+
+module.exports = stockRoutes

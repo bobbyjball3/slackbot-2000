@@ -1,14 +1,13 @@
 'use strict'
 
-function validateStockSymbols(req, res, next) {
+function validateStockSymbols (req, res, next) {
   try {
     let rawStockSymbols = req.body.text.split(' ')
     req.log.info(`Quote request for symbols: ${rawStockSymbols}`)
 
     // Only allow 1 stock symbols per request
     if (rawStockSymbols.length > 1) {
-      rawStockSymbols = rawStockSymbols.slice(0,1)
-
+      rawStockSymbols = rawStockSymbols.slice(0, 1)
     }
 
     rawStockSymbols = rawStockSymbols.map(symbol => {
@@ -35,7 +34,6 @@ function validateStockSymbols(req, res, next) {
 
     req.stockSymbols = validatedStockSymbols
     return next()
-
   } catch (err) {
     next(err)
   }

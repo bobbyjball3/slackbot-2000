@@ -1,8 +1,7 @@
 'use strict'
 
-function validateRequest(slackValidationToken) {
-
-  return function(req, res, next) {
+function validateRequest (slackValidationToken) {
+  return function (req, res, next) {
     let requestToken = req.body.token
 
     if (requestToken !== slackValidationToken) {
@@ -13,9 +12,7 @@ function validateRequest(slackValidationToken) {
     }
 
     return next()
-
   }
-
 }
 
 module.exports = validateRequest

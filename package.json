@@ -1,11 +1,11 @@
 {
-  "name": "stockbot-2000",
+  "name": "slackbot-2000",
   "version": "0.0.1",
-  "description": "Slack stock bot",
+  "description": "Collections of slack bots for personal use",
   "main": "slackbot-2000.js",
   "scripts": {
     "start": "node slackbot-2000.js | bunyan -o short",
-    "test": "istanbul cover _mocha test/mocha-*.js",
+    "test": "istanbul cover _mocha $(find test/ -name 'test-*' -type f)",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "standard --global describe --global it"
   },
@@ -28,7 +28,10 @@
     "coveralls": "3.0.0",
     "istanbul": "0.4.5",
     "mocha": "5.0.0",
-    "standard": "10.0.3"
+    "nock": "9.1.6",
+    "sinon": "4.2.0",
+    "standard": "10.0.3",
+    "supertest": "3.0.0"
   },
   "dependencies": {
     "body-parser": "1.18.2",
@@ -37,6 +40,7 @@
     "express": "4.16.2",
     "express-bunyan-logger": "1.3.2",
     "helmet": "3.9.0",
-    "request": "2.83.0"
+    "ioredis": "3.2.2",
+    "request-promise-native": "1.0.5"
   }
 }
