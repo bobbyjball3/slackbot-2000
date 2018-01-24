@@ -1,7 +1,7 @@
 'ues strict'
 const request = require('request-promise-native')
 
-async function getStockPrice (stockSymbol = '') {
+async function getStockPrice(stockSymbol = '') {
   try {
     
     let url = `https://finance.google.com/finance?q=NASDAQ:${stockSymbol}&output=json`
@@ -12,10 +12,9 @@ async function getStockPrice (stockSymbol = '') {
     return tradingPrice
 
   } catch (err) {
-    
-    let message = `Unable to retrieve stock data for symbol ${symbol}`
+    let message = `Unable to retrieve stock data for symbol ${stockSymbol}`
     let error = new Error(message)
-    error.causedBy = err.stack
+    error.stack += '\ncausedBy:\n'+err.stack
     throw error
   
   }

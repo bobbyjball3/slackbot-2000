@@ -5,7 +5,7 @@
   "main": "slackbot-2000.js",
   "scripts": {
     "start": "node slackbot-2000.js | bunyan -o short",
-    "test": "istanbul cover _mocha $(find test/ -name 'test-*' -type f)",
+    "test": "nyc mocha $(find test/ -name 'test-*' -type f)",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "standard --global describe --global it"
   },
@@ -26,9 +26,9 @@
   "devDependencies": {
     "chai": "4.1.2",
     "coveralls": "3.0.0",
-    "istanbul": "0.4.5",
     "mocha": "5.0.0",
     "nock": "9.1.6",
+    "nyc": "11.4.1",
     "sinon": "4.2.0",
     "standard": "10.0.3",
     "supertest": "3.0.0"
