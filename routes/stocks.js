@@ -10,8 +10,8 @@ function stockRoutes(getStockPrice) {
     // FIXME: probably should loop in case we support more than one symbol in the future
     let stockSymbol = req.stockSymbols[0]
     getStockPrice(stockSymbol)
-      .then(tradingPrice => {
-        let stockInformation = `${stockSymbol} is currently trading at ${tradingPrice}`
+      .then(stockData => {
+        let stockInformation = `${stockData.companyName} (${stockSymbol}) is currently trading at ${stockData.tradingPrice}`
         res.status(200).send(stockInformation).end()
       })
       .catch(err => {

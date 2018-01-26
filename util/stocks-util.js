@@ -9,12 +9,16 @@ async function getStockPrice(stockSymbol = '') {
     // Google includes a double forward-slash on their JSON, so we need to strip it before parsing
     let stockData = JSON.parse(stockDataString.substring(3))[0]
     let tradingPrice = `${stockData.l}USD`
-    return tradingPrice
+    let companyName = stockData.name
+    
+    return { tradingPrice, companyName }
 
   } catch (err) {
+    
     let message = `Unable to retrieve stock data for symbol ${stockSymbol}`
     let error = new Error(message)
     error.stack += '\ncausedBy:\n'+err.stack
+    
     throw error
   
   }

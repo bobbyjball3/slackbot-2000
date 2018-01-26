@@ -11,7 +11,7 @@ describe('Stocks Util Tests', () => {
       .reply(500, 'Something went wrong :(')
 
     getStockPrice('AMZN')
-      .then((stockPrice) => {})
+      .then((stockData) => {})
       .catch((err) => {
         expect(err).to.be.instanceof(Error)
         expect(err.message).to.equal('Unable to retrieve stock data for symbol AMZN')
@@ -22,11 +22,14 @@ describe('Stocks Util Tests', () => {
   it('Should return stock tradingPrice when it can retrieve it', (done) => {
     let scope = nock('https://finance.google.com')
       .get(/\/finance.*/)
-      .reply(200, '// [{"l":1.11}]')
+      .reply(200, '// [{"l":1.11, "name": "Amazon Inc."}]')
 
     getStockPrice('AMZN')
-      .then((stockPrice) => {
-        expect(stockPrice).to.match(/\d+\.\d+USD/)
+      .then((stockData) => {
+        expect(stockData).to.be.instanceOf(Object)
+        expect(stockData.tradingPrice).to.match(/\d+\.\d+USD/)
+        console.log(stockData.companyName)
+        expect(stockData.companyName).to.have.length.above(0)
         return done()
       })
       .catch((err) => {
